@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
+
 import { ConfigModule } from '@nestjs/config';
-import { User } from './users/users.model';
+import { Role } from './roles/entities/role.entity';
 import { RolesModule } from './roles/roles.module';
+import { User } from './users/entities/user.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { RolesModule } from './roles/roles.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [User],
+      entities: [User, Role],
       synchronize: true,
     }),
     UsersModule,
