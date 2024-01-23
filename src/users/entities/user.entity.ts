@@ -1,17 +1,20 @@
 import { Role } from 'src/roles/entities/role.entity';
-import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('users')
+@Entity('social_users')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
   email: string;
   @Column()
-  password: string;
+  name: string;
   @Column()
-  fullName: string;
+  lastname: string;
+  @Column()
+  roleid: any;
 
-  @ManyToMany(() => Role, (role) => role.users)
-  roles?: Role[];
+  @ManyToOne(() => Role, (role) => role.id)
+  @JoinColumn({ name: 'roleid', referencedColumnName: 'id' })
+  role?: Role;
 }

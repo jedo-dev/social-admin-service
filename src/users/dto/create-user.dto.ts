@@ -1,12 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateRoleDto } from 'src/roles/dto/create-role.dto';
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'test@test.ru', description: 'почта' })
+  @ApiProperty({ example: 1, description: 'id записи' })
+  readonly id?: number;
+  @ApiProperty({ example: 'test@test.ru', description: 'Электронная почта' })
   readonly email: string;
-  @ApiProperty({ example: 'ну тут букофки', description: 'Пароль' })
-  readonly password: string;
+
+  @ApiProperty({ example: 'Иванов', description: 'Фамилия пользователя' })
+  readonly lastname: string;
+
   @ApiProperty({ example: 'Иван', description: 'Имя пользователя' })
-  readonly fullName: string;
-  @ApiProperty({ example: [], description: 'массив ролей' })
-  readonly roles?: any[];
+  readonly name: string;
+
+  @ApiProperty({ example: CreateRoleDto, description: 'Роль' })
+  readonly role?: CreateRoleDto;
 }
