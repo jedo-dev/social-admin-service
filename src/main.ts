@@ -26,7 +26,7 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
-  const httpPort = 3001;
+  const httpPort = 5000;
   await app.listen(httpPort);
   console.log(`HTTP server is listening on port ${httpPort}`);
 

@@ -1,0 +1,33 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: [self-hosted]
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 🔨 Docker Compose Build
+        run: |
+          echo "Building Docker images..."
+          docker-compose -f docker-compose.yml build
+
+      - name: 🏃 Docker Compose Up
+        run: |
+          echo "Starting Docker containers..."
+          docker-compose -f docker-compose.yml up -d dev
+        env:
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET}}
+          RMQ_QUEUE: ${{secrets.RMQ_QUEUE}}
+          RMQ_URL: ${{secrets.RMQ_URL}}
