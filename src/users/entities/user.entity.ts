@@ -13,7 +13,8 @@ export class User extends BaseEntity {
   lastname: string;
   @Column()
   roleid: any;
-
+  @Column()
+  password: string; 
   @ManyToOne(() => Role, (role) => role.id)
   @JoinColumn({ name: 'roleid', referencedColumnName: 'id' })
   role?: Role;
