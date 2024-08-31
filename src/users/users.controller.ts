@@ -16,6 +16,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('users')
 @ApiTags('Пользователи')
@@ -84,10 +85,10 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Авторизация пользователя' })
-  @ApiResponse({ status: 200, description: 'Пользователь авторизован.' })
+  @ApiResponse({ status: 200, description: 'Пользователь авторизован.', type: LoginUserDto })
   @ApiBadRequestResponse({ description: 'Неверные входные данные.' })
   @Post('login')
-  async login(@Body() loginDto: LoginDto) {
+  async login(@Body() loginDto: LoginUserDto) {
     const user = await this.authService.validateUser(loginDto.email, loginDto.password);
     if (!user) {
       return {

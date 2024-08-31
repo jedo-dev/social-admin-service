@@ -1,12 +1,13 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from './roles/entities/role.entity';
 import { RolesModule } from './roles/roles.module';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { PasswordHideMiddleware } from './common/middleware/passwordHide.middleware';
 
 @Module({
   imports: [
@@ -28,4 +29,8 @@ import { UsersModule } from './users/users.module';
   ],
   providers: [JwtService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(PasswordHideMiddleware).forRoutes('users');
+  }
+}
