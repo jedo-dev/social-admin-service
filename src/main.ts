@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
@@ -31,16 +30,16 @@ async function bootstrap() {
   console.log(`HTTP server is listening on port ${httpPort}`);
 
   // Create microservice
-  const microservice = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.RMQ,
-    options: {
-      urls: [process.env.RMQ_URL],
-      queue: process.env.RMQ_QUEUE,
-      queueOptions: {
-        durable: false,
-      },
-    },
-  });
+  // const microservice = await NestFactory.createMicroservice(AppModule, {
+  //   transport: Transport.RMQ,
+  //   options: {
+  //     urls: [process.env.RMQ_URL],
+  //     queue: process.env.RMQ_QUEUE,
+  //     queueOptions: {
+  //       durable: false,
+  //     },
+  //   },
+  // });
 
   // Start the microservice
   // await microservice.listen();
