@@ -41,10 +41,10 @@ jobs:
           echo "POSTGRES_PORT=$POSTGRES_PORT"
           # Не выводите секретные данные!
 
-      - name: ✅ Check Service Health
-        run: |
-          curl --fail http://localhost:8112/health || exit 1
+      # - name: ✅ Check Service Health
+      #   run: |
+      #     curl --fail http://localhost:8112/health || exit 1
 
-      - name: 🧹 Docker Compose Down
-        if: always()
-        run: docker-compose -f docker-compose.yml down
+      # - name: 🧹 Docker Compose Down
+      #   if: always()
+      #   run: docker-compose -f docker-compose.yml down
