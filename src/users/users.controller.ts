@@ -10,13 +10,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthService } from '../auth/auth.service';
-import { LoginDto } from '../auth/dto/login.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { CurrentUser } from './decorators/current-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
-import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('users')
 @ApiTags('Пользователи')
@@ -53,18 +53,19 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @ApiOperation({ summary: 'Получить пользователя по ID' })
-  @ApiResponse({
-    status: 200,
-    description: 'Возвращает пользователя с указанным ID.',
-    type: UpdateUserDto,
-  })
-  @ApiNotFoundResponse({ description: 'Пользователь не найден.' })
-  @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
-  }
+  // @ApiOperation({ summary: 'Получить пользователя по ID' })
+  // @ApiResponse({
+  //   status: 200,
+  //   description: 'Возвращает пользователя с указанным ID.',
+  //   type: UpdateUserDto,
+  // })
+  // @ApiNotFoundResponse({ description: 'Пользователь не найден.' })
+  // @UseGuards(JwtAuthGuard)
+  // @Get(':id')
+  // findOne2(@Param('id') id: string) {
+  //   console.log('ff findOne2 ');
+  //   return this.usersService.findOne(+id);
+  // }
 
   @ApiOperation({ summary: 'Обновить пользователя по ID' })
   @ApiCreatedResponse({ description: 'Пользователь успешно обновлен.', type: UpdateUserDto })
@@ -72,6 +73,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    console.log('ff update');
     return this.usersService.update(+id, updateUserDto);
   }
 
@@ -81,6 +83,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
+    console.log('ff remove');
     return this.usersService.remove(+id);
   }
 
@@ -97,5 +100,11 @@ export class UsersController {
       };
     }
     return this.authService.login(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/me')
+  findOne(@CurrentUser() user: User): User {
+    return user;
   }
 }
