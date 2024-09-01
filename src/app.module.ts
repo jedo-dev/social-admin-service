@@ -28,4 +28,8 @@ import { UsersModule } from './users/users.module';
   ],
   providers: [JwtService],
 })
-export class AppModule {}
+export class AppModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(PasswordHideMiddleware).forRoutes('users');
+  // }
+}

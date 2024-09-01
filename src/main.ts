@@ -43,7 +43,7 @@ async function bootstrap() {
   });
 
   // Start the microservice
-  await microservice.listen();
+  // await microservice.listen();
   console.log('Microservice is connected to RabbitMQ');
 }
 
