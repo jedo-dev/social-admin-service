@@ -7,6 +7,6 @@ import { RolesService } from './roles.service';
 @Module({
   controllers: [RolesController],
   providers: [RolesService],
-  imports: [TypeOrmModule.forFeature([Role], process.env.POSTGRES_DB)],
+  imports: [TypeOrmModule.forFeature([Role])],
 })
 export class RolesModule {}

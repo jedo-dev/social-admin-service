@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { DataSource } from 'typeorm';
 import { Role } from './roles/entities/role.entity';
 import { RolesModule } from './roles/roles.module';
 import { User } from './users/entities/user.entity';
@@ -26,7 +27,14 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     RolesModule,
   ],
-  providers: [JwtService],
+  providers: [
+    {
+      provide: 'postgresDataSource',
+      useFactory: (dataSource: DataSource) => dataSource,
+      inject: [DataSource],
+    },
+    JwtService,
+  ],
 })
 export class AppModule {
   // configure(consumer: MiddlewareConsumer) {

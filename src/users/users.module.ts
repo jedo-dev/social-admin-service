@@ -9,10 +9,7 @@ import { UsersService } from './users.service';
 @Module({
   controllers: [UsersController],
   providers: [UsersService, JwtService],
-  imports: [
-    TypeOrmModule.forFeature([User], process.env.POSTGRES_DB),
-    forwardRef(() => AuthModule),
-  ],
+  imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],
   exports: [UsersService],
 })
 export class UsersModule {}
