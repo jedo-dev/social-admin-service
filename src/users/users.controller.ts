@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import {
   ApiBadRequestResponse,
@@ -94,10 +94,7 @@ export class UsersController {
   async login(@Body() loginDto: LoginUserDto) {
     const user = await this.authService.validateUser(loginDto.email, loginDto.password);
     if (!user) {
-      return {
-        statusCode: 400,
-        message: 'Неверные учетные данные',
-      };
+      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
     }
     return this.authService.login(user);
   }
