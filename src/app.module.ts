@@ -19,6 +19,8 @@ import { Okpd } from './okpd/entities/okpd.entity';
 import { OkpdModule } from './okpd/okpd.module';
 import { Okved } from './okved/entities/okved.entity';
 import { OkvedModule } from './okved/okved.module';
+import { EgrulInfo, InnList, MspReestr, Rnp } from './participant/entities/inn-list.entity';
+import { ParticipantModule } from './participant/participant.module';
 import { RatingModule } from './rating/rating.module';
 import { Role } from './roles/entities/role.entity';
 import { RolesModule } from './roles/roles.module';
@@ -53,6 +55,10 @@ import { UsersModule } from './users/users.module';
         FsspEntity,
         SpecialTaxationEntity,
         EgrulEntity,
+        Rnp,
+        MspReestr,
+        EgrulInfo,
+        InnList,
       ],
     }),
     UsersModule,
@@ -61,6 +67,7 @@ import { UsersModule } from './users/users.module';
     OkvedModule,
     BusinessRisksModule,
     RatingModule,
+    ParticipantModule,
   ],
   providers: [
     {
